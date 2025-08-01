@@ -1,6 +1,6 @@
-# 🎬 MovieWebII - Fullstack Movie Search App
+# 🎬 MovieFlix - Fullstack Movie Search App
 
-Welcome to **MovieWebII**! This project is a fullstack movie search and browsing app built with React and Express. You can browse a base set of movies, search for new ones, and enjoy a modern UI. 🚀
+Welcome to **MovieFlix**! This project is a fullstack movie search and browsing app built with React and Express. You can browse a base set of movies, search for new ones, and enjoy a modern UI. 🚀
 
 ---
 
@@ -9,8 +9,8 @@ Welcome to **MovieWebII**! This project is a fullstack movie search and browsing
 ### 1. 🚚 Clone the Repository
 
 ```bash
-git clone https://github.com/4ritr0/MovieWebII.git
-cd MovieWebII/new-react-app
+git clone https://github.com/4ritr0/MovieFlix.git
+cd MovieFlix/new-react-app
 ```
 
 ### 2. 📦 Install Dependencies
