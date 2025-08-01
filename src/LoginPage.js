@@ -5,35 +5,43 @@ function LoginPage({ onClose }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
+  const [signedUpUsername, setSignedUpUsername] = useState(null);
 
-  const handleSubmit = () => {
-    // Perform login or signup logic here (based on isSignUp state)
-    if (isSignUp) {
-      // Additional logic for signup
-      console.log("Sign up logic");
-      console.log("Username:", username);
-      console.log("Password:", password);
-      console.log("Confirm Password:", confirmPassword);
+  const handleSignup = () => {
+    if (password === confirmPassword) {
+      setSignedUpUsername(username);
+      setIsSignUp(false);
+      // onClose();
     } else {
-      // Login logic
-      console.log("Login logic");
-      console.log("Username:", username);
-      console.log("Password:", password);
+      console.error("Passwords do not match");
     }
+  };
 
-    // Close the login page after submitting
+  const handleLogin = () => {
+    // console.log("Login logic");
+    // console.log("Username:", username);
+    // console.log("Password:", password);
+
     onClose();
   };
 
+  const handleSignupSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    handleSignup();
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    handleLogin();
+  };
+
   const handleOverlayClick = (e) => {
-    // Close the login page if the overlay (outside the modal) is clicked
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
 
   const toggleMode = () => {
-    // Switch between login and signup modes
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
   };
 
@@ -41,29 +49,38 @@ function LoginPage({ onClose }) {
     <div style={styles.overlay} onClick={handleOverlayClick}>
       <div style={styles.modal}>
         <div style={styles.modalContent}>
-          <h2>{isSignUp ? "Sign Up" : "Welcome back!"}</h2>
-          <h3></h3>
-          <label>
-            Username:
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              style={styles.input}
-            />
-          </label>
-          <br />
-          <label>
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={styles.input}
-            />
-          </label>
-          {isSignUp && (
-            <>
+          {signedUpUsername && (
+            <h4>
+              Welcome {signedUpUsername}
+              <br />
+              <br />
+              Confirm account creation?
+            </h4>
+          )}
+          {!signedUpUsername && (
+            <h2>{isSignUp ? "Sign Up" : "Welcome back!"}</h2>
+          )}
+          {isSignUp ? (
+            <form onSubmit={handleSignupSubmit} action="/signup" method="POST">
+              <label>
+                Username:
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  style={styles.input}
+                />
+              </label>
+              <br />
+              <label>
+                Password:
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={styles.input}
+                />
+              </label>
               <br />
               <label>
                 Confirm Password:
@@ -74,14 +91,38 @@ function LoginPage({ onClose }) {
                   style={styles.input}
                 />
               </label>
-            </>
+              <br />
+              <button type="submit" style={styles.greenButton}>
+                Sign Up
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleLoginSubmit} action="/login" method="POST">
+              <label>
+                Username:
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  style={styles.input}
+                />
+              </label>
+              <br />
+              <label>
+                Password:
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={styles.input}
+                />
+              </label>
+              <br />
+              <button type="submit" style={styles.greenButton}>
+                Submit
+              </button>
+            </form>
           )}
-          <br />
-          <div className="bg-green-500 border border-black rounded text-2l text-white text-center mt-2">
-            <button onClick={handleSubmit}>
-              {isSignUp ? "Sign Up" : "Submit"}
-            </button>
-          </div>
           <div style={{ marginTop: "10px", color: "white" }}>
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
             <span
@@ -104,7 +145,7 @@ const styles = {
     left: 0,
     width: "100%",
     height: "100%",
-    background: "rgba(0, 0, 0, 0.7)", // Adjust the alpha value for transparency
+    background: "rgba(0, 0, 0, 0.7)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -117,7 +158,7 @@ const styles = {
     textAlign: "center",
   },
   modalContent: {
-    width: "300px", // Adjust the width as needed
+    width: "300px",
   },
   input: {
     width: "100%",
