@@ -2,7 +2,7 @@
 
 Welcome to **MovieFlix**! This project is a fullstack movie search and browsing app built with React and Express. You can browse a base set of movies, search for new ones, and enjoy a modern UI. 🚀
 
-![MovieFlix Screenshot](public/screenshot.png)
+![MovieFlix Screenshot](public/MovieFlix.png)
 ---
 
 ## 🛠️ Quick Start
